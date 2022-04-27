@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class Prompt {
 
-	private final static String PROMPT = "cal> ";
-
 	public void runPrompt() {
 		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
@@ -18,11 +16,11 @@ public class Prompt {
 			System.out.print("원하는 달을 선택하세요 : \n");
 			System.out.print("MONTH> ");
 			int month = scan.nextInt();
-			
+
 			System.out.print("원하는 요일을 선택하세요\n");
 			System.out.print("(SU, MO, TU, WE, TH, FR, SA) \n");
 			System.out.print("DAY> ");
-			String day = scan.next();
+			String weekday = scan.next();
 
 			// 예외처리
 			if (month == -1) {
@@ -35,7 +33,7 @@ public class Prompt {
 				continue;
 			}
 
-			cal.printCalendar(year, month, day);
+			cal.printCalendar(year, month, weekday.toUpperCase());
 		}
 		scan.close();
 
