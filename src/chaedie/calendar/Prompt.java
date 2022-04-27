@@ -11,9 +11,18 @@ public class Prompt {
 		Calendar cal = new Calendar();
 
 		while (true) {
+			System.out.print("원하는 년도을 선택하세요 : \n");
+			System.out.print("YEAR> ");
+			int year = scan.nextInt();
+
 			System.out.print("원하는 달을 선택하세요 : \n");
-			System.out.print(PROMPT);
+			System.out.print("MONTH> ");
 			int month = scan.nextInt();
+			
+			System.out.print("원하는 요일을 선택하세요\n");
+			System.out.print("(SU, MO, TU, WE, TH, FR, SA) \n");
+			System.out.print("DAY> ");
+			String day = scan.next();
 
 			// 예외처리
 			if (month == -1) {
@@ -26,7 +35,7 @@ public class Prompt {
 				continue;
 			}
 
-			cal.printCalendar(2022, month);
+			cal.printCalendar(year, month, day);
 		}
 		scan.close();
 
