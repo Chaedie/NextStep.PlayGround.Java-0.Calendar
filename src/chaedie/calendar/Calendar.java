@@ -29,7 +29,7 @@ public class Calendar {
 		Scanner scan = new Scanner(System.in);
 		int n = scan.nextInt();
 		int[] iMonths = new int[n];
-		
+
 		// 숫자를 입력받아 해당하는 달의 최대 일수를 출력하는 프로그램
 		System.out.print("\n원하는 달을 선택하세요 : \n");
 		for (int i = 0; i < n; i++) {
