@@ -1,4 +1,4 @@
-package chaedie.calender;
+package chaedie.calendar;
 import java.util.Scanner;
 
 public class sum {
