@@ -111,7 +111,7 @@ public class Calendar {
 
 		int maxDay = getMaxDaysOfMonth(year, month);
 		int dayIndex = getFirstWeekday(year, month);
-		int delim = 7 - dayIndex;
+		int delim = (7 - dayIndex) % 7;
 
 		// Print blank space
 		for (int i = 0; i < dayIndex; i++) {
