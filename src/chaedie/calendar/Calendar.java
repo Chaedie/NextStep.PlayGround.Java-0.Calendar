@@ -59,7 +59,19 @@ public class Calendar {
 		dayOfMonthGap = getDayofMonthGap(year, month);
 		totalDayGap = dayOfYearGap + dayOfMonthGap;
 		dayIndex = (totalDayGap + 6) % 7;
-
+		
+		// TODO : 2000이라는 기준년도, 
+		// 2000년 1월 1일의 기준 요일 명시 없이  
+		// (totalDayGap + 6)로 숫자로 하드코딩한거 
+		// 변수로 설명해야 올바른 방법이다. 
+		
+		// 추가로, 함수가 너무 많고 복잡한데
+		// 줄일거 줄이는게 맞아 보인다.
+		// 삼항연산자 사용하면 많이 줄어든다.
+		
+		// 추가로, 컴퓨터에서 달력의 첫날은 1970년 1월 1일이다. 
+		// 달력 구현할땐 앞으로 70년 1월 1일을 기준으로 하면 된다.
+		
 		return dayIndex;
 	}
 
