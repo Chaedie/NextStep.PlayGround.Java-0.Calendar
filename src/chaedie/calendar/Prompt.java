@@ -30,32 +30,21 @@ public class Prompt {
 				printBye();
 				break;
 			}
-
-//			System.out.print("원하는 요일을 선택하세요. (exit : -1) \n");
-//			System.out.print("(SU, MO, TU, WE, TH, FR, SA) \n");
-//			System.out.print("DAY> ");
-//			String weekday = scan.next();
-//			// 종료
-//			if (weekday == "-1") {
-//				printBye();
-//				break;
-//			}
-
+			// 예외처리
 			if (month > 12 || month < -1 || month == 0) {
 				System.out.println("Wrong value \n");
 				continue;
 			}
 
-			cal.printCalendar(year, month/*, weekday.toUpperCase()*/);
+			cal.printCalendar(year, month);
 		}
-		scan.close();
 
+		scan.close();
 	}
 
 	public static void main(String[] args) {
 		// 셸 실행
 		Prompt p = new Prompt();
 		p.runPrompt();
-
 	}
 }
