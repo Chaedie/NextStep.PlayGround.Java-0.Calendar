@@ -1,6 +1,6 @@
 package chaedie.calendar;
 
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.Scanner;
 
 public class Calendar {
@@ -23,15 +23,23 @@ public class Calendar {
 
 	public static void main(String[] args) {
 
-		// 숫자를 입력받아 해당하는 달의 최대 일수를 출력하는 프로그램
-		System.out.print("\n원하는 달을 선택하세요 : ");
-		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
-		int iMonth = scan.nextInt();
+		// 숫자 입력받아 몇개의 월을 받을건지선택 -> 월 최대 일수 출력 반복
+		System.out.println("반복 횟수를 입력하세요. ");
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();
+		int[] iMonths = new int[n];
+		
+		// 숫자를 입력받아 해당하는 달의 최대 일수를 출력하는 프로그램
+		System.out.print("\n원하는 달을 선택하세요 : \n");
+		for (int i = 0; i < n; i++) {
+			iMonths[i] = scan.nextInt();
+		}
+		for (int i = 0; i < n; i++) {
+			System.out.printf("%d월의 마지막 날은 %d 입니다. \n", iMonths[i], cal.getMaxDaysOfMonth(iMonths[i]));
+		}
 
-		System.out.printf("%d월의 마지막 날은 %d 입니다. \n\n", iMonth, cal.getMaxDaysOfMonth(iMonth));
-
-		cal.printSampleCalendar();
+//		cal.printSampleCalendar();
 		scan.close();
 
 	}
