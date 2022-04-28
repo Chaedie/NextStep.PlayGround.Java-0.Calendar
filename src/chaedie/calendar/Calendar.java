@@ -13,7 +13,7 @@ public class Calendar {
 	public ArrayList<String> schedulesOfDay = new ArrayList<String>();
 
 	public String parseIntScheduleDateStr(String scheduleDateStr) {
-
+		// (xxxx-xx-xx) 형식을 (xxxxxxxx) 형식으로 변환 
 		String[] str = scheduleDateStr.split("-");
 		int month = Integer.parseInt(str[1]);
 		int date = Integer.parseInt(str[2]);
@@ -119,18 +119,6 @@ public class Calendar {
 		int maxDay = getMaxDaysOfMonth(year, month);
 		int dayIndex = getFirstWeekday(year, month);
 		int delim = (7 - dayIndex) % 7;
-
-		/*
-		 * TODO 1. pasreInt로 year, month, date 값을 알아내야한다. -> key값자체를 parseint 해서 담아야할듯
-		 * * int처리가 번거롭다. 
-		 * 2. 그 날짜 값으로 HashMap.isEmpty()를 사용해 for문 안에 .을 찍어야한다.
-		 */
-//		String zeroMonth = new String();
-//		zeroMonth = Integer.toString(month);
-//		if(month < 10) {			
-//			zeroMonth = "0" + month;
-//		}
-//		System.out.println(zeroMonth);
 
 		// Print blank space
 		for (int i = 0; i < dayIndex; i++) {
