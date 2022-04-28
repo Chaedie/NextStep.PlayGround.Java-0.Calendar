@@ -31,7 +31,7 @@ public class Prompt {
 
 		userInput = scan.nextLine();
 
-		while (userInput != "q") {
+		while (!userInput.equals("q")) {
 
 			switch (userInput) {
 			case "1":
@@ -49,7 +49,7 @@ public class Prompt {
 			case "q":
 				break;
 			}
-			if (userInput != "q") {
+			if (userInput.equals("q")) {
 				System.out.println();
 				System.out.println("1. 일정 등록, 2. 일정 검색, 3. 달력 보기, h. 도움말, q. 종료");
 				System.out.println(PROMPT);
