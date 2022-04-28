@@ -1,9 +1,29 @@
 package chaedie.calendar;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Calendar {
 
 	private final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	
+	public Map<String,String> schedules = new HashMap<String, String>();
+
+	public void setSchedule(String scheduleDateStr, String scheduleStr) {
+		schedules.put(scheduleDateStr, scheduleStr);
+	}
+	
+	public void getSchedule(String scheduleDateStr) {
+		//갯수 세기
+		String schedule = new String(schedules.getOrDefault(scheduleDateStr, " "));
+		if(schedule.equals(" ")) {
+			System.out.println("0개의 일정이 있습니다.");				
+		} else {
+			System.out.println("1개의 일정이 있습니다.");
+			System.out.println(schedules.get(scheduleDateStr));
+		}
+	}
 
 	public boolean isLeapYear(int year) {
 		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
@@ -101,4 +121,6 @@ public class Calendar {
 		}
 		System.out.println();
 	}
+
+	
 }

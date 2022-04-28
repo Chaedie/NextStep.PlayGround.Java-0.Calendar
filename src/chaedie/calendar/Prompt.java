@@ -14,16 +14,20 @@ public class Prompt {
 		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
 		String userInput = null;
+		String scheduleDateStr = null;
+		String scheduleStr = null;
+		
+		
 		System.out.println("+----------------------+\r\n" + "|  1. 일정 등록           \r\n" + "|  2. 일정 검색           \r\n"
 				+ "|  3. 달력 보기\r\n" + "|  h. 도움말 q. 종료\r\n" + "+----------------------+");
 		System.out.println(PROMPT);
-		userInput = scan.next();
+		userInput = scan.nextLine();
 		
 		/* TODO 및 초안
-		 * 1. 일정등록
+		 * 1. 일정등록 (하나완성)
 		 *	HashMap 사용해서 key : 날짜, value : 일정 으로 하면될것같다.
 		 *	이럴경우 key에 value가 여러개가 될수있는지는 모르겠다. 아마도 덮어써질듯.
-		 *	일단 하나라도 가능하게 구현해보자.
+		 *	일단 하나라도 가능하게 구현해보자. 
 		 * 2. 일정 검색
 		 *	검색 또한 key값 입력하면 value 출력하게 만들면 쉽게 구현가능하다.
 		 * 3. 달력 보기
@@ -34,22 +38,25 @@ public class Prompt {
 
 			switch (userInput) {
 			case "1":
-				System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
-				System.out.println(PROMPT);
 				// input
-				String scheduleDateStr = scan.next();
-				System.out.println(scheduleDateStr);
+				System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
+				System.out.println(PROMPT);				
+				scheduleDateStr = scan.nextLine();
+				
 				System.out.println("[일정 등록] 일정을 입력하세요. ");
-				String scheduleDateStr = scan.next();
-				// schedule
+				System.out.println(PROMPT);
+				scheduleStr = scan.nextLine();
+				
+				cal.setSchedule(scheduleDateStr, scheduleStr);
 				System.out.println("일정이 등록되었습니다.");
-								
+				
 				break;
 			case "2":
 				System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
-				// input
-				System.out.printf("%d개의 일정이 있습니다."/*TODO , countSchedule */);
-				System.out.printf("%s"/* , schedule*/);
+				System.out.println(PROMPT);
+				scheduleDateStr = scan.nextLine();
+				
+				cal.getSchedule(scheduleDateStr);
 				break;
 			case "3":
 				int year, month;
@@ -66,7 +73,7 @@ public class Prompt {
 				System.out.println();
 				System.out.println("1. 일정 등록, 2. 일정 검색, 3. 달력 보기, h. 도움말, q. 종료");
 				System.out.println(PROMPT);
-				userInput = scan.next();
+				userInput = scan.nextLine();
 			}
 
 //			System.out.print("원하는 년도을 선택하세요. (exit : -1) \n");
