@@ -24,12 +24,13 @@ public class Prompt {
 		userInput = scan.nextLine();
 		
 		/* TODO 및 초안
-		 * 1. 일정등록 (하나완성)
-		 *	HashMap 사용해서 key : 날짜, value : 일정 으로 하면될것같다.
-		 *	이럴경우 key에 value가 여러개가 될수있는지는 모르겠다. 아마도 덮어써질듯.
-		 *	일단 하나라도 가능하게 구현해보자. 
-		 * 2. 일정 검색
-		 *	검색 또한 key값 입력하면 value 출력하게 만들면 쉽게 구현가능하다.
+		 *DONE	1. 일정등록 (하나완성)
+		 *DONE	HashMap 사용해서 key : 날짜, value : 일정 으로 하면될것같다.
+		 *DONE	이럴경우 key에 value가 여러개가 될수있는지는 모르겠다. 아마도 덮어써질듯.
+		 *DONE	일단 하나라도 가능하게 구현해보자. 
+		 *DONE  HashMap의 Key : String, Value : ArrayList[]로 2개이상 구현완료.
+		 *DONE 2. 일정 검색
+		 *DONE	검색 또한 key값 입력하면 value 출력하게 만들면 쉽게 구현가능하다.
 		 * 3. 달력 보기
 		 *	달력에서 확인하는건 추후 생각해볼 문제
 		 */

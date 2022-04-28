@@ -1,5 +1,6 @@
 package chaedie.calendar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,20 +9,25 @@ public class Calendar {
 	private final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	
-	public Map<String,String> schedules = new HashMap<String, String>();
+	public Map<String, ArrayList<String>> schedules = new HashMap<>();
+	public ArrayList<String> schedulesOfDay = new ArrayList<String>();
 
 	public void setSchedule(String scheduleDateStr, String scheduleStr) {
-		schedules.put(scheduleDateStr, scheduleStr);
+		schedulesOfDay.add(scheduleStr);
+		schedules.put(scheduleDateStr, schedulesOfDay);
 	}
 	
-	public void getSchedule(String scheduleDateStr) {
+	public void getSchedule(String scheduleDateStr) {		
 		//갯수 세기
-		String schedule = new String(schedules.getOrDefault(scheduleDateStr, " "));
-		if(schedule.equals(" ")) {
+		schedulesOfDay = schedules.get(scheduleDateStr);
+		
+		if(schedulesOfDay == null) {
 			System.out.println("0개의 일정이 있습니다.");				
 		} else {
-			System.out.println("1개의 일정이 있습니다.");
-			System.out.println(schedules.get(scheduleDateStr));
+			System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
+			for (String tmp : schedulesOfDay) {
+				System.out.println(tmp);
+			}
 		}
 	}
 
