@@ -10,49 +10,41 @@ public class Prompt {
 		System.out.print("Bye ~ \n");
 	}
 
+	public void printMenu() {
+		System.out.println("+----------------------+");
+		System.out.println("|  1. 일정 등록           ");
+		System.out.println("|  2. 일정 검색           ");
+		System.out.println("|  3. 달력 보기");
+		System.out.println("|  h. 도움말 q. 종료");
+		System.out.println("+----------------------+");
+		System.out.println(PROMPT);
+	}
+
 	public void runPrompt() {
+		printMenu();
+
 		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
 		String userInput = null;
 		String scheduleDateStr = null;
 		String scheduleStr = null;
 
-		System.out.println("+----------------------+\r\n" + "|  1. 일정 등록           \r\n" + "|  2. 일정 검색           \r\n"
-				+ "|  3. 달력 보기\r\n" + "|  h. 도움말 q. 종료\r\n" + "+----------------------+");
-		System.out.println(PROMPT);
 		userInput = scan.nextLine();
 
 		while (userInput != "q") {
 
 			switch (userInput) {
 			case "1":
-				// input
-				System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
-				System.out.println(PROMPT);
-				scheduleDateStr = scan.nextLine();
-
-				System.out.println("[일정 등록] 일정을 입력하세요. ");
-				System.out.println(PROMPT);
-				scheduleStr = scan.nextLine();
-
-				cal.setSchedule(scheduleDateStr, scheduleStr);
-				System.out.println("일정이 등록되었습니다.");
-
+				cmdRegister(scan, cal, scheduleDateStr, scheduleStr);
 				break;
 			case "2":
-				System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
-				System.out.println(PROMPT);
-				scheduleDateStr = scan.nextLine();
-
-				cal.getSchedule(scheduleDateStr);
+				cmdSearch(scan, cal, scheduleDateStr, scheduleStr);
 				break;
 			case "3":
-				int year, month;
-				year = 2022;
-				month = 4;
-				cal.printCalendar(year, month); // TODO printCal 안에 일정에 점찍기 기능 추가
+				cmdCal(scan, cal);
 				break;
 			case "h":
+				printMenu();
 				break;
 			case "q":
 				break;
@@ -66,6 +58,57 @@ public class Prompt {
 		}
 		printBye();
 		scan.close();
+	}
+
+	private void cmdCal(Scanner scan, Calendar cal) {
+		System.out.print("원하는 년도을 선택하세요. (exit : -1) \n");
+		System.out.print("YEAR> ");
+		int year = scan.nextInt();
+		// 종료
+		if (year == -1) {
+			printBye();
+			return;
+		}
+
+		System.out.print("원하는 달을 선택하세요. (exit : -1) \n");
+		System.out.print("MONTH> ");
+		int month = scan.nextInt();
+		// 종료
+		if (month == -1) {
+			printBye();
+			return;
+		}
+		// 예외처리
+		if (month > 12 || month < -1 || month == 0) {
+			System.out.println("Wrong value \n");
+			return;
+		}
+
+		cal.printCalendar(year, month); // TODO printCal 안에 일정에 점찍기 기능 추가
+		scan.nextLine();
+		
+	}
+
+	private void cmdSearch(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) {
+		System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
+		System.out.println(PROMPT);
+		scheduleDateStr = scan.nextLine();
+
+		cal.getSchedule(scheduleDateStr);
+	}
+
+	private void cmdRegister(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) {
+		// input
+		System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
+		System.out.println(PROMPT);
+		scheduleDateStr = scan.nextLine();
+
+		System.out.println("[일정 등록] 일정을 입력하세요. ");
+		System.out.println(PROMPT);
+		scheduleStr = scan.nextLine();
+
+		cal.setSchedule(scheduleDateStr, scheduleStr);
+		System.out.println("일정이 등록되었습니다.");		
 	}
 
 	public static void main(String[] args) {
