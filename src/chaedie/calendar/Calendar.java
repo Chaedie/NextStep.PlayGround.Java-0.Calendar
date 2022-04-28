@@ -8,21 +8,30 @@ public class Calendar {
 
 	private final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-	
+
 	public Map<String, ArrayList<String>> schedules = new HashMap<>();
 	public ArrayList<String> schedulesOfDay = new ArrayList<String>();
 
+	public String parseIntScheduleDateStr(String scheduleDateStr) {
+
+		String[] str = scheduleDateStr.split("-");
+		int month = Integer.parseInt(str[1]);
+		int date = Integer.parseInt(str[2]);
+		String keyOfSchedule = str[0] + Integer.toString(month) + Integer.toString(date);
+		return keyOfSchedule;
+	}
+
 	public void setSchedule(String scheduleDateStr, String scheduleStr) {
 		schedulesOfDay.add(scheduleStr);
-		schedules.put(scheduleDateStr, schedulesOfDay);
+		schedules.put(parseIntScheduleDateStr(scheduleDateStr), schedulesOfDay);
 	}
-	
-	public void getSchedule(String scheduleDateStr) {		
-		//갯수 세기
-		schedulesOfDay = schedules.get(scheduleDateStr);
-		
-		if(schedulesOfDay == null) {
-			System.out.println("0개의 일정이 있습니다.");				
+
+	public void getSchedule(String scheduleDateStr) {
+		// 갯수 세기
+		schedulesOfDay = schedules.get(parseIntScheduleDateStr(scheduleDateStr));
+
+		if (schedulesOfDay == null) {
+			System.out.println("0개의 일정이 있습니다.");
 		} else {
 			System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
 			for (String tmp : schedulesOfDay) {
@@ -85,19 +94,19 @@ public class Calendar {
 		dayOfMonthGap = getDayofMonthGap(year, month);
 		totalDayGap = dayOfYearGap + dayOfMonthGap;
 		dayIndex = (totalDayGap + 6) % 7;
-		
-		// TODO : 2000이라는 기준년도, 
-		// 2000년 1월 1일의 기준 요일 명시 없이  
-		// (totalDayGap + 6)로 숫자로 하드코딩한거 
-		// 변수로 설명해야 올바른 방법이다. 
-		
+
+		// TODO : 2000이라는 기준년도,
+		// 2000년 1월 1일의 기준 요일 명시 없이
+		// (totalDayGap + 6)로 숫자로 하드코딩한거
+		// 변수로 설명해야 올바른 방법이다.
+
 		// 추가로, 함수가 너무 많고 복잡한데
 		// 줄일거 줄이는게 맞아 보인다.
 		// 삼항연산자 사용하면 많이 줄어든다.
-		
-		// 추가로, 컴퓨터에서 달력의 첫날은 1970년 1월 1일이다. 
+
+		// 추가로, 컴퓨터에서 달력의 첫날은 1970년 1월 1일이다.
 		// 달력 구현할땐 앞으로 70년 1월 1일을 기준으로 하면 된다.
-		
+
 		return dayIndex;
 	}
 
@@ -111,15 +120,36 @@ public class Calendar {
 		int dayIndex = getFirstWeekday(year, month);
 		int delim = (7 - dayIndex) % 7;
 
+		/*
+		 * TODO 1. pasreInt로 year, month, date 값을 알아내야한다. -> key값자체를 parseint 해서 담아야할듯
+		 * * int처리가 번거롭다. 
+		 * 2. 그 날짜 값으로 HashMap.isEmpty()를 사용해 for문 안에 .을 찍어야한다.
+		 */
+//		String zeroMonth = new String();
+//		zeroMonth = Integer.toString(month);
+//		if(month < 10) {			
+//			zeroMonth = "0" + month;
+//		}
+//		System.out.println(zeroMonth);
+
 		// Print blank space
 		for (int i = 0; i < dayIndex; i++) {
 			System.out.print("      ");
 		}
 		for (int i = 1; i < maxDay + 1; i++) {
-			if (i < 10) {
-				System.out.printf("%5d", i);
+			schedulesOfDay = schedules.get(Integer.toString(year) + Integer.toString(month) + Integer.toString(i));
+			if (schedulesOfDay == null) {
+				if (i < 10) {
+					System.out.printf("%5d", i);
+				} else {
+					System.out.printf("%4d", i);
+				}
 			} else {
-				System.out.printf("%4d", i);
+				if (i < 10) {
+					System.out.printf("%4d.", i);
+				} else {
+					System.out.printf("%3d.", i);
+				}
 			}
 			if (i % 7 == delim) {
 				System.out.println();
@@ -128,5 +158,4 @@ public class Calendar {
 		System.out.println();
 	}
 
-	
 }

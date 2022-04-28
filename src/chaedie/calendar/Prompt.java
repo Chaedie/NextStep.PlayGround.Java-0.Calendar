@@ -31,8 +31,8 @@ public class Prompt {
 		 *DONE  HashMap의 Key : String, Value : ArrayList[]로 2개이상 구현완료.
 		 *DONE 2. 일정 검색
 		 *DONE	검색 또한 key값 입력하면 value 출력하게 만들면 쉽게 구현가능하다.
-		 * 3. 달력 보기
-		 *	달력에서 확인하는건 추후 생각해볼 문제
+		 *DONE 3. 달력 보기
+		 *DONE	달력에서 확인하는건 추후 생각해볼 문제
 		 */
 
 		while (userInput != "q") {
