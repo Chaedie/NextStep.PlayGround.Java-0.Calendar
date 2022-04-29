@@ -15,7 +15,7 @@ public class Schedule {
 //		ArrayList ArrayList;		
 //	}
 
-	public String parseIntScheduleDateStr(String scheduleDateStr) throws Exception {
+	public String parseDate(String scheduleDateStr) throws Exception {
 		// (xxxx-xx-xx) 형식을 (xxxxxxxx) 형식으로 변환 
 		String[] str = scheduleDateStr.split("-");
 		int month = Integer.parseInt(str[1]);
@@ -27,10 +27,13 @@ public class Schedule {
 	}
 
 	public Boolean setSchedule(String scheduleDateStr, String scheduleStr) {
+		FileDatabase db = new FileDatabase();
 		try {
 			schedulesOfDay.add(scheduleStr);
-			String date = parseIntScheduleDateStr(scheduleDateStr);
+			String date = parseDate(scheduleDateStr);
 			schedules.put(date, schedulesOfDay);
+			// TODO 파일 롸이트
+			db.makeFile(date, schedulesOfDay);
 			return true;
 		} catch (Exception e) {
 			System.err.println("잘못된 입력입니다.");
@@ -42,20 +45,20 @@ public class Schedule {
 	public void getSchedule(String scheduleDateStr) {
 		// 갯수 세기
 		try {
-			schedulesOfDay = schedules.get(parseIntScheduleDateStr(scheduleDateStr));
+			schedulesOfDay = schedules.get(parseDate(scheduleDateStr));
 		} catch (Exception e) {
 			System.err.println("잘못된 입력입니다.");
 			System.err.println("날짜를 확인해주세요. (xxxx-xx-xx)");
 			return;
 		}
-
+		
 		if (schedulesOfDay == null) {
 			System.out.println("0개의 일정이 있습니다.");
-		} else {
-			System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
-			for (String tmp : schedulesOfDay) {
-				System.out.println(tmp);
-			}
+			return ;
+		} 
+		System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
+		for (String tmp : schedulesOfDay) {
+			System.out.println(tmp);
 		}
 	}
 

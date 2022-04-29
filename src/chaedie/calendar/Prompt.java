@@ -100,10 +100,16 @@ public class Prompt {
 
 	private void cmdRegister(Scanner scan, Schedule schedule, String scheduleDateStr, String scheduleStr) {
 		// input
-		System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
-		System.out.println(PROMPT);
-		scheduleDateStr = scan.nextLine();
-
+		try {
+			System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
+			System.out.println(PROMPT);
+			scheduleDateStr = scan.nextLine();
+			schedule.parseDate(scheduleDateStr);
+		} catch (Exception e) {
+			System.err.println("잘못된 입력입니다.");
+			System.err.println("날짜를 확인해주세요. (xxxx-xx-xx)");
+			return;
+		}
 		System.out.println("[일정 등록] 일정을 입력하세요. ");
 		System.out.println(PROMPT);
 		scheduleStr = scan.nextLine();
