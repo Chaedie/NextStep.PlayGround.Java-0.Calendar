@@ -94,7 +94,8 @@ public class Prompt {
 		System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
 		System.out.println(PROMPT);
 		scheduleDateStr = scan.nextLine();
-
+		
+		
 		schedule.getSchedule(scheduleDateStr);
 	}
 

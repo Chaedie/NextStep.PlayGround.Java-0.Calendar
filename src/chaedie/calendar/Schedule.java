@@ -33,7 +33,7 @@ public class Schedule {
 			String date = parseDate(scheduleDateStr);
 			schedules.put(date, schedulesOfDay);
 			// TODO 파일 롸이트
-			db.makeFile(date, schedulesOfDay);
+			db.writeFile(date, schedulesOfDay);
 			return true;
 		} catch (Exception e) {
 			System.err.println("잘못된 입력입니다.");
@@ -44,22 +44,28 @@ public class Schedule {
 
 	public void getSchedule(String scheduleDateStr) {
 		// 갯수 세기
+		FileDatabase db = new FileDatabase();
+		String date;
 		try {
-			schedulesOfDay = schedules.get(parseDate(scheduleDateStr));
+			date = parseDate(scheduleDateStr);
+			db.readFile(date, schedulesOfDay);
+			//schedulesOfDay = schedules.get(date);
 		} catch (Exception e) {
 			System.err.println("잘못된 입력입니다.");
 			System.err.println("날짜를 확인해주세요. (xxxx-xx-xx)");
 			return;
 		}
 		
-		if (schedulesOfDay == null) {
-			System.out.println("0개의 일정이 있습니다.");
-			return ;
-		} 
-		System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
-		for (String tmp : schedulesOfDay) {
-			System.out.println(tmp);
-		}
+//		if (schedulesOfDay == null) {
+//			System.out.println("0개의 일정이 있습니다.");
+//			return ;
+//		} 
+//		System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
+//		db.readFile(date, schedulesOfDay);
+//		for (String tmp : schedulesOfDay) {
+//			db.readFile(date, schedulesOfDay);
+//			System.out.println(tmp);
+//		}
 	}
 
 }
