@@ -1,6 +1,9 @@
 package chaedie.calendar;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +14,35 @@ public class Calendar {
 
 	public Map<String, ArrayList<String>> schedules = new HashMap<>();
 	public ArrayList<String> schedulesOfDay = new ArrayList<String>();
+	
+	private HashMap <Date, PlanItem> planMap;
+	
+	public Calendar() {
+		planMap = new HashMap<Date, PlanItem>();
+		
+	}
+	
+	/**
+	 * 
+	 * @param date ex : "2022-04-29"
+	 * @param plan
+	 * @throws ParseException 
+	 */
+	
+	public void registerPlan(String strDate, String plan) throws ParseException {
+		
+		PlanItem p = new PlanItem(strDate, plan);
+		
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(strDate);		
+		//System.out.println(date);
+		planMap.put(p.getDate(), p);
+		
+	}
+	
+	public PlanItem searchPlan(String strDate) throws ParseException {
+		Date date = PlanItem.getDatefromString(strDate);
+		return planMap.get(date);
+	}
 
 	public String parseIntScheduleDateStr(String scheduleDateStr) {
 		// (xxxx-xx-xx) 형식을 (xxxxxxxx) 형식으로 변환 
@@ -147,4 +179,14 @@ public class Calendar {
 		System.out.println();
 	}
 
+	// simple test code here
+	public static void main(String[] args) throws ParseException {
+		
+		Calendar cal = new Calendar();
+		
+		cal.registerPlan("2022-04-29", "let's eat beef!");
+		System.out.println(cal.searchPlan("2022-04-29").equals("let's eat beef!"));
+	}
+	
+	
 }

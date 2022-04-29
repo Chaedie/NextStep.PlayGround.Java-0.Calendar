@@ -1,5 +1,6 @@
 package chaedie.calendar;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Prompt {
@@ -20,7 +21,7 @@ public class Prompt {
 		System.out.println(PROMPT);
 	}
 
-	public void runPrompt() {
+	public void runPrompt() throws ParseException {
 		printMenu();
 
 		Scanner scan = new Scanner(System.in);
@@ -49,7 +50,7 @@ public class Prompt {
 			case "q":
 				break;
 			}
-			if (userInput.equals("q")) {
+			if (!userInput.equals("q")) {
 				System.out.println();
 				System.out.println("1. 일정 등록, 2. 일정 검색, 3. 달력 보기, h. 도움말, q. 종료");
 				System.out.println(PROMPT);
@@ -93,11 +94,19 @@ public class Prompt {
 		System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
 		System.out.println(PROMPT);
 		scheduleDateStr = scan.nextLine();
-
-		cal.getSchedule(scheduleDateStr);
+		String plan = "";
+		try {
+			plan = cal.searchPlan(scheduleDateStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//cal.getSchedule(scheduleDateStr);
+		
+		System.out.println(plan);
 	}
 
-	private void cmdRegister(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) {
+	private void cmdRegister(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) throws ParseException {
 		// input
 		System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
 		System.out.println(PROMPT);
@@ -107,13 +116,19 @@ public class Prompt {
 		System.out.println(PROMPT);
 		scheduleStr = scan.nextLine();
 
-		cal.setSchedule(scheduleDateStr, scheduleStr);
+		cal.registerPlan(scheduleDateStr, scheduleStr);
+		//cal.setSchedule(scheduleDateStr, scheduleStr);
 		System.out.println("일정이 등록되었습니다.");		
 	}
 
 	public static void main(String[] args) {
 		// 셸 실행
 		Prompt p = new Prompt();
-		p.runPrompt();
+		try {
+			p.runPrompt();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
