@@ -14,6 +14,7 @@ public class Calendar {
 
 	public String parseIntScheduleDateStr(String scheduleDateStr) {
 		// (xxxx-xx-xx) 형식을 (xxxxxxxx) 형식으로 변환 
+		// 강의 보니 Date 라이브러리가 있음
 		String[] str = scheduleDateStr.split("-");
 		int month = Integer.parseInt(str[1]);
 		int date = Integer.parseInt(str[2]);
