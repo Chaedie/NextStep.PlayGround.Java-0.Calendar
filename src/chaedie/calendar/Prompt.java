@@ -25,6 +25,7 @@ public class Prompt {
 
 		Scanner scan = new Scanner(System.in);
 		Calendar cal = new Calendar();
+		Schedule schedule = new Schedule();
 		String userInput = null;
 		String scheduleDateStr = null;
 		String scheduleStr = null;
@@ -35,10 +36,10 @@ public class Prompt {
 
 			switch (userInput) {
 			case "1":
-				cmdRegister(scan, cal, scheduleDateStr, scheduleStr);
+				cmdRegister(scan, schedule, scheduleDateStr, scheduleStr);
 				break;
 			case "2":
-				cmdSearch(scan, cal, scheduleDateStr, scheduleStr);
+				cmdSearch(scan, schedule, scheduleDateStr, scheduleStr);
 				break;
 			case "3":
 				cmdCal(scan, cal);
@@ -49,7 +50,7 @@ public class Prompt {
 			case "q":
 				break;
 			}
-			if (userInput.equals("q")) {
+			if (!userInput.equals("q")) {
 				System.out.println();
 				System.out.println("1. 일정 등록, 2. 일정 검색, 3. 달력 보기, h. 도움말, q. 종료");
 				System.out.println(PROMPT);
@@ -89,15 +90,15 @@ public class Prompt {
 		
 	}
 
-	private void cmdSearch(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) {
+	private void cmdSearch(Scanner scan, Schedule schedule, String scheduleDateStr, String scheduleStr) {
 		System.out.println("[일정 검색] 날짜를 입력하세요. (xxxx-xx-xx)");
 		System.out.println(PROMPT);
 		scheduleDateStr = scan.nextLine();
 
-		cal.getSchedule(scheduleDateStr);
+		schedule.getSchedule(scheduleDateStr);
 	}
 
-	private void cmdRegister(Scanner scan, Calendar cal, String scheduleDateStr, String scheduleStr) {
+	private void cmdRegister(Scanner scan, Schedule schedule, String scheduleDateStr, String scheduleStr) {
 		// input
 		System.out.println("[일정 등록] 날짜를 입력하세요. (xxxx-xx-xx)");
 		System.out.println(PROMPT);
@@ -107,8 +108,9 @@ public class Prompt {
 		System.out.println(PROMPT);
 		scheduleStr = scan.nextLine();
 
-		cal.setSchedule(scheduleDateStr, scheduleStr);
-		System.out.println("일정이 등록되었습니다.");		
+		if (schedule.setSchedule(scheduleDateStr, scheduleStr)) {
+			System.out.println("일정이 등록되었습니다.");	
+		}			
 	}
 
 	public static void main(String[] args) {

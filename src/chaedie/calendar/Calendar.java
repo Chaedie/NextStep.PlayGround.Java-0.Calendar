@@ -1,44 +1,9 @@
 package chaedie.calendar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Calendar {
 
 	private final int[] MAX_DAYS = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	private final int[] LEAP_MAX_DAYS = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
-	public Map<String, ArrayList<String>> schedules = new HashMap<>();
-	public ArrayList<String> schedulesOfDay = new ArrayList<String>();
-
-	public String parseIntScheduleDateStr(String scheduleDateStr) {
-		// (xxxx-xx-xx) 형식을 (xxxxxxxx) 형식으로 변환 
-		String[] str = scheduleDateStr.split("-");
-		int month = Integer.parseInt(str[1]);
-		int date = Integer.parseInt(str[2]);
-		String keyOfSchedule = str[0] + Integer.toString(month) + Integer.toString(date);
-		return keyOfSchedule;
-	}
-
-	public void setSchedule(String scheduleDateStr, String scheduleStr) {
-		schedulesOfDay.add(scheduleStr);
-		schedules.put(parseIntScheduleDateStr(scheduleDateStr), schedulesOfDay);
-	}
-
-	public void getSchedule(String scheduleDateStr) {
-		// 갯수 세기
-		schedulesOfDay = schedules.get(parseIntScheduleDateStr(scheduleDateStr));
-
-		if (schedulesOfDay == null) {
-			System.out.println("0개의 일정이 있습니다.");
-		} else {
-			System.out.printf("%d개의 일정이 있습니다. \n", schedulesOfDay.size());
-			for (String tmp : schedulesOfDay) {
-				System.out.println(tmp);
-			}
-		}
-	}
 
 	public boolean isLeapYear(int year) {
 		if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
@@ -125,8 +90,10 @@ public class Calendar {
 			System.out.print("      ");
 		}
 		for (int i = 1; i < maxDay + 1; i++) {
-			schedulesOfDay = schedules.get(Integer.toString(year) + Integer.toString(month) + Integer.toString(i));
-			if (schedulesOfDay == null) {
+			// TODO Date class 이용해서 직접 parse 한 부분 없애기
+			Schedule schedule = new Schedule();
+			schedule.schedulesOfDay = schedule.schedules.get(Integer.toString(year) + Integer.toString(month) + Integer.toString(i));
+			if (schedule.schedulesOfDay == null) {
 				if (i < 10) {
 					System.out.printf("%5d", i);
 				} else {
